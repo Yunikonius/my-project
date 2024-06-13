@@ -1,12 +1,21 @@
 import pandas as pd
-import matplotlib.pyplot as plt
 
-dir = '/Users/yurisafonov/Desktop/my_git_project/'
-organisations = pd.read_csv(dir + 'organisations.csv')
+# Пример для Series
+s = pd.Series([1, 2, 3, 4, 5])
+mean_value = s.mean()
+print("Среднее значение Series:", mean_value)
 
-data = organisations.drop(columns=['org_id', 'city', 'rating', 'rubrics_id', 'features_id'], axis=1)
-filtered_df = data.query('average_bill <= 2500 & average_bill.isna()')
-grouped_data = filtered_df.groupby('average_bill').size()
-grouped_data = grouped_data.reset_index(name='count')
-plt.figure(figsize=(10,6))
-print(plt.hist(grouped_data['average_bill'].dropna(), bins=20, edgecolor='k', alpha=0.7))
+# Пример для DataFrame
+data = {
+    'A': [1, 2, 3],
+    'B': [4, 5, 6],
+    'C': [7, 8, 9]
+}
+df = pd.DataFrame(data)
+mean_values_columns = df.mean()
+print("\nСредние значения по столбцам:")
+print(mean_values_columns)
+
+mean_values_rows = df.mean(axis=1)
+print("\nСредние значения по строкам:")
+print(mean_values_rows)
