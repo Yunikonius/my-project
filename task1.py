@@ -1,21 +1,21 @@
-import pandas as pd
+import numpy as np
+from keras.models import Sequential
+from keras.layers import Dense
 
-# Пример для Series
-s = pd.Series([1, 2, 3, 4, 5])
-mean_value = s.mean()
-print("Среднее значение Series:", mean_value)
+# Генерация данных
+X = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
+y = np.array([[0], [1], [1], [0]])
 
-# Пример для DataFrame
-data = {
-    'A': [1, 2, 3],
-    'B': [4, 5, 6],
-    'C': [7, 8, 9]
-}
-df = pd.DataFrame(data)
-mean_values_columns = df.mean()
-print("\nСредние значения по столбцам:")
-print(mean_values_columns)
+# Создание модели
+model = Sequential()
+model.add(Dense(4, input_dim=2, activation='relu'))  # Входной слой + 1 скрытый слой с 4 нейронами
+model.add(Dense(1, activation='sigmoid'))  # Выходной слой
 
-mean_values_rows = df.mean(axis=1)
-print("\nСредние значения по строкам:")
-print(mean_values_rows)
+# Компиляция модели
+model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+# Тренировка модели
+model.fit(X, y, epochs=1000, verbose=0)
+
+# Вывод структуры модели
+model.summary()
